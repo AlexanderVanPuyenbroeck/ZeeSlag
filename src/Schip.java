@@ -19,6 +19,13 @@ public class Schip {
         levens = soort.lengte;
     }
 
+    public Schip() {
+        this.x = 0;
+        this.y = 0;
+        this.richting = Richting.ZUID;
+        this.soort = SoortSchip.PATROUILLESCHIP;
+    }
+
     public void geraakt(){
         levens--;
     }
@@ -35,8 +42,24 @@ public class Schip {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public SoortSchip getSoort() {
         return soort;
+    }
+
+    public void setSoort(String soort) {
+        return;
+    }
+
+    public void setRichting(String richting) {
+        return;
     }
 
     public int getLengte(){
@@ -48,7 +71,7 @@ public class Schip {
     }
 
     public enum SoortSchip {
-        PATROUILLESCHIP(2), TORPEDOBOOTJAGER(4), SLAGSCHIP(5), VLIEGDEKSCHIP(6);
+        PATROUILLESCHIP(2), TORPEDOBOOTJAGER(3), SLAGSCHIP(4), VLIEGDEKSCHIP(5);
 
         private int lengte;
 

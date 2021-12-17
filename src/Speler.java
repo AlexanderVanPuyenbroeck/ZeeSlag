@@ -20,8 +20,9 @@ public class Speler {
         return naam;
     }
 
-    public void setNaam(String naam) {
+    public String setNaam(String naam) {
         this.naam = naam;
+        return naam;
     }
 
     public SpeelVeld getSpeelVeld() {
