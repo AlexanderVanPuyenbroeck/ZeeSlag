@@ -10,10 +10,12 @@ public class Speler {
     private RadarVeld radar;
 
     public Speler() {
+        speelVeld= new SpeelVeld(this);
     }
 
     public Speler(String naam) {
         this.naam = naam;
+        speelVeld= new SpeelVeld(this);
     }
 
     public String getNaam() {
@@ -23,6 +25,10 @@ public class Speler {
     public String setNaam(String naam) {
         this.naam = naam;
         return naam;
+    }
+
+    public void setRadar(RadarVeld radar) {
+        this.radar = radar;
     }
 
     public SpeelVeld getSpeelVeld() {
