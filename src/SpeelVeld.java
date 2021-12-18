@@ -56,14 +56,26 @@ public class SpeelVeld {
         tekenSchepen();
     }
 
+    public char[][] getMatrix() {
+        return speelMatrix;
+    }
+
     public void draw() {
+        int teller = 0;
+        //System.out.println(); hier moet naam nog komen ma daarvoor moet ik nog speler tovoegen als attribuut!!!
+
+        System.out.println("  0 1 2 3 4 5 6 7 8 9  ");
+        System.out.println(" ----------------------");
         for (char[] chars : speelMatrix) {
-            StringBuilder stringBuilder = new StringBuilder("|");
+            StringBuilder stringBuilder = new StringBuilder(teller + "|");
+            teller++;
             for (char aChar : chars) {
                 stringBuilder.append(aChar + " ");
             }
+            stringBuilder.append("|");
             System.out.println(stringBuilder);
         }
+        System.out.println(" ----------------------");
     }
 
     //   public void setSpeelveld(char[][] speelveld) {
