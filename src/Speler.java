@@ -35,6 +35,10 @@ public class Speler {
         return speelVeld;
     }
 
+    @Override
+    public String toString() {
+        return String.format("speler: %s",naam);
+    }
 
     public RadarVeld getRadar() {
         return radar;

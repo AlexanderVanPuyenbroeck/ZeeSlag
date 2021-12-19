@@ -37,4 +37,10 @@ public class ZeeSlag {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return String.format("het spel is op ronde %d",0);
+        //0 vervangen door ronde teller is voor later
+    }
 }

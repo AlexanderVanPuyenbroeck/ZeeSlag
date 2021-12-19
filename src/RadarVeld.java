@@ -45,4 +45,21 @@ public class RadarVeld extends SpeelVeld {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        int hTeller = 0;
+        int mTeller = 0;
+        for (char[] matrix : radarMatrix) {
+            for (char c : matrix) {
+                if (c == 'H'){
+                    hTeller++;
+                }
+                if (c == 'M'){
+                    mTeller++;
+                }
+            }
+        }
+        return String.format("hits: %d\ngemist: %d",hTeller,mTeller);
+    }
 }

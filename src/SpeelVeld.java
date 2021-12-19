@@ -92,6 +92,14 @@ public class SpeelVeld {
         System.out.println(" ----------------------");
     }
 
+    @Override
+    public String toString() {
+        int totLevens = 0;
+        for (Schip schip : schepen) {
+            totLevens += schip.getLevens();
+        }
+        return "Schepen in het speelveld";
+    }
     //   public void setSpeelveld(char[][] speelveld) {
     //       this.speelMatrix = speelveld;
     //   }
