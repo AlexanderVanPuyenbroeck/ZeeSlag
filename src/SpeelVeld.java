@@ -73,13 +73,12 @@ public class SpeelVeld {
     }
 
 
-
-    public void draw() {
+    @Override
+    public String toString() {
         int teller = 0;
-        System.out.println(eigenaar.getNaam());
-
-        System.out.println("  0 1 2 3 4 5 6 7 8 9  ");
-        System.out.println(" ----------------------");
+        StringBuilder builder = new StringBuilder("  0 1 2 3 4 5 6 7 8 9  \n" +
+                                                  "  ---------------------\n"
+        );
         for (char[] chars : speelMatrix) {
             StringBuilder stringBuilder = new StringBuilder(teller + "|");
             teller++;
@@ -87,18 +86,10 @@ public class SpeelVeld {
                 stringBuilder.append(aChar + " ");
             }
             stringBuilder.append("|");
-            System.out.println(stringBuilder);
+            builder.append(stringBuilder + "\n");
         }
-        System.out.println(" ----------------------");
-    }
-
-    @Override
-    public String toString() {
-        int totLevens = 0;
-        for (Schip schip : schepen) {
-            totLevens += schip.getLevens();
-        }
-        return "Schepen in het speelveld";
+        builder.append("  ---------------------");
+        return builder.toString();
     }
     //   public void setSpeelveld(char[][] speelveld) {
     //       this.speelMatrix = speelveld;

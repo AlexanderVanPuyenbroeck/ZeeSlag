@@ -8,6 +8,7 @@ public class Speler {
     private String naam;
     private SpeelVeld speelVeld;
     private RadarVeld radar;
+    private int score;
 
     public Speler() {
         speelVeld= new SpeelVeld(this);
