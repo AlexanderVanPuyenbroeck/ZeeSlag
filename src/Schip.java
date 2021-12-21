@@ -1,3 +1,5 @@
+import java.lang.management.ThreadInfo;
+
 /**
  * Alexander Van Puyenbroeck
  * 17/12/2021
@@ -54,12 +56,12 @@ public class Schip {
         return soort;
     }
 
-    public void setSoort(String soort) {
-        return;
+    public void setSoort(SoortSchip soort) {
+        this.soort = soort;
     }
 
-    public void setRichting(String richting) {
-        return;
+    public void setRichting(Richting richting) {
+        this.richting = richting;
     }
 
     public int getLengte(){
@@ -79,8 +81,6 @@ public class Schip {
             this.lengte = lengte;
         }
     }
-
-
 
     public enum Richting {
         NOORD, OOST, ZUID, WEST
