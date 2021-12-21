@@ -10,10 +10,12 @@ public class Speler {
     private RadarVeld radar;
 
     public Speler() {
+        speelVeld= new SpeelVeld(this);
     }
 
     public Speler(String naam) {
         this.naam = naam;
+        speelVeld= new SpeelVeld(this);
     }
 
     public String getNaam() {
@@ -25,10 +27,18 @@ public class Speler {
         return naam;
     }
 
+    public void setRadar(RadarVeld radar) {
+        this.radar = radar;
+    }
+
     public SpeelVeld getSpeelVeld() {
         return speelVeld;
     }
 
+    @Override
+    public String toString() {
+        return String.format("speler: %s",naam);
+    }
 
     public RadarVeld getRadar() {
         return radar;

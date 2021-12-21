@@ -72,6 +72,11 @@ public class Schip {
         return richting;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Het %s, met coordinaten (%d,%d), staat in een %slijke richting",soort,x,y,richting);
+    }
+
     public enum SoortSchip {
         PATROUILLESCHIP(2), TORPEDOBOOTJAGER(3), SLAGSCHIP(4), VLIEGDEKSCHIP(5);
 
