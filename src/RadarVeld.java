@@ -14,26 +14,7 @@ public class RadarVeld extends SpeelVeld {
 
     }
 
-    @Override
-    public void draw() {
-        int teller = 0;
-        System.out.println("  0 1 2 3 4 5 6 7 8 9  ");
-        System.out.println(" ----------------------");
-        for (char[] chars : radarMatrix) {
-            StringBuilder stringBuilder = new StringBuilder(teller + "|");
-            teller++;
-            for (char aChar : chars) {
-                if (aChar == 'X') {
-                    stringBuilder.append('\0' + " ");
-                } else {
-                    stringBuilder.append(aChar + " ");
-                }
-            }
-            stringBuilder.append("|");
-            System.out.println(stringBuilder);
-        }
-        System.out.println(" ----------------------");
-    }
+
 
     public boolean schiet(int x, int y) {
         if (doelwit.checkLocatie(x, y) == 'X') {

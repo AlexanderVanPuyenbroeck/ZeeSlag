@@ -11,9 +11,7 @@ public class DemoVeld {
                 new Schip(1,2, Schip.SoortSchip.VLIEGDEKSCHIP, Schip.Richting.ZUID)
         };
         SpeelVeld veldje = new SpeelVeld(bootjes, p1);
-        veldje.draw();
-        RadarVeld radar = new RadarVeld(veldje);
-        radar.draw();
+        System.out.println(veldje.toString());
 
     }
 }
