@@ -6,7 +6,8 @@
  */
 public class SpeelVeld {
     public final int MAXSPEELVELD = 10;
-    private char[][] speelMatrix;
+    //private char[][] speelMatrix;
+    private Vakje[][] speelMatrix;
     private Schip[] schepen;
     private Speler eigenaar;
 
@@ -15,20 +16,22 @@ public class SpeelVeld {
 
     public SpeelVeld(Speler eigenaar) {
         this.eigenaar = eigenaar;
-        speelMatrix = new char[MAXSPEELVELD][MAXSPEELVELD];
+        speelMatrix = new Vakje[MAXSPEELVELD][MAXSPEELVELD];
+        blanco();
     }
 
     public SpeelVeld(Schip[] schepen) {
-
         this.schepen = schepen;
-        speelMatrix = new char[MAXSPEELVELD][MAXSPEELVELD];
+        speelMatrix = new Vakje[MAXSPEELVELD][MAXSPEELVELD];
+        blanco();
         tekenSchepen();
     }
 
     public SpeelVeld(Schip[] schepen, Speler eigenaar) {
         this.schepen = schepen;
         this.eigenaar = eigenaar;
-        speelMatrix = new char[MAXSPEELVELD][MAXSPEELVELD];
+        speelMatrix = new Vakje[MAXSPEELVELD][MAXSPEELVELD];
+        blanco();
         tekenSchepen();
     }
 
@@ -36,30 +39,42 @@ public class SpeelVeld {
         for (Schip schip : schepen) {
             if (schip.getRichting() == Schip.Richting.NOORD) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX() - i][schip.getY()] = 'X';
+                    speelMatrix[schip.getX() - i][schip.getY()] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.OOST) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX()][schip.getY() + i] = 'X';
+                    speelMatrix[schip.getX()][schip.getY() + i] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.ZUID) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX() + i][schip.getY()] = 'X';
+                    speelMatrix[schip.getX() + i][schip.getY()] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.WEST) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX()][schip.getY() - i] = 'X';
+                    speelMatrix[schip.getX()][schip.getY() - i] = Vakje.SH;
                 }
             }
         }
     }
 
-    public char checkLocatie(int x, int y) {
+    public void blanco(){
+        for (int i = 0; i < MAXSPEELVELD; i++) {
+            for (int j = 0; j < MAXSPEELVELD; j++) {
+                speelMatrix[i][j]= Vakje.WA;
+            }
+        }
+    }
+
+    public Vakje checkLocatie(int x, int y) {
         return speelMatrix[x][y];
     }
 
     public void schipGeraakt(int x, int y) {
-        speelMatrix[x][y] = 'H';
+        speelMatrix[x][y] = Vakje.SR;
+    }
+
+    public void schipGemist(int x, int y) {
+        speelMatrix[x][y] = Vakje.WM;
     }
 
 
@@ -68,7 +83,7 @@ public class SpeelVeld {
         tekenSchepen();
     }
 
-    public char[][] getMatrix() {
+    public Vakje[][] getMatrix() {
         return speelMatrix;
     }
 
@@ -76,22 +91,22 @@ public class SpeelVeld {
     @Override
     public String toString() {
         int teller = 0;
-        StringBuilder builder = new StringBuilder("  0 1 2 3 4 5 6 7 8 9  \n" +
-                                                  "  ---------------------\n"
+        StringBuilder builder = new StringBuilder("  0  1  2  3  4  5  6  7  8  9  \n" +
+                                                  " --------------------------------\n"
         );
-        for (char[] chars : speelMatrix) {
+        for (Vakje[] vakjes : speelMatrix) {
             StringBuilder stringBuilder = new StringBuilder(teller + "|");
             teller++;
-            for (char aChar : chars) {
-                stringBuilder.append(aChar + " ");
+            for (Vakje vakje : vakjes) {
+                stringBuilder.append(vakje + " ");
             }
             stringBuilder.append("|");
             builder.append(stringBuilder + "\n");
         }
-        builder.append("  ---------------------");
+        builder.append(" --------------------------------");
         return builder.toString();
     }
-    //   public void setSpeelveld(char[][] speelveld) {
-    //       this.speelMatrix = speelveld;
-    //   }
+    public enum Vakje {
+        WA, WM, SH, SR
+    }
 }

@@ -28,16 +28,19 @@ public class Schip {
         this.soort = SoortSchip.PATROUILLESCHIP;
     }
 
+
     public void geraakt(){
         levens--;
     }
 
-    public int getY() {
-        return y;
+    public boolean gezonken(){
+        if (levens <= 0){
+            return true;
+        }else return false;
     }
 
-    public int getLevens() {
-        return levens;
+    public int getY() {
+        return y;
     }
 
     public int getX() {

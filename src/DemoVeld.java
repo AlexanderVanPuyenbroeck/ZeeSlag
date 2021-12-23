@@ -12,6 +12,5 @@ public class DemoVeld {
         };
         SpeelVeld veldje = new SpeelVeld(bootjes, p1);
         System.out.println(veldje.toString());
-
     }
 }
