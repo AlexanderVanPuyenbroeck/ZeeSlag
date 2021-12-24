@@ -10,6 +10,7 @@ public class SpeelVeld {
     private Vakje[][] speelMatrix;
     private Schip[] schepen;
     private Speler eigenaar;
+    private int schepenteller=0;
 
     public SpeelVeld() {
     }
@@ -35,23 +36,28 @@ public class SpeelVeld {
         tekenSchepen();
     }
 
+    public void schipToevoegen(Schip schip){
+        schepen[schepenteller]=schip;
+        schepenteller++;
+    }
+
     private void tekenSchepen() {
         for (Schip schip : schepen) {
             if (schip.getRichting() == Schip.Richting.NOORD) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX() - i][schip.getY()] = Vakje.SH;
+                    speelMatrix[schip.getY() - i][schip.getX() ] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.OOST) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX()][schip.getY() + i] = Vakje.SH;
+                    speelMatrix[schip.getY()][schip.getX() + i] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.ZUID) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX() + i][schip.getY()] = Vakje.SH;
+                    speelMatrix[schip.getY() + i][schip.getX()] = Vakje.SH;
                 }
             } else if (schip.getRichting() == Schip.Richting.WEST) {
                 for (int i = 0; i < schip.getLengte(); i++) {
-                    speelMatrix[schip.getX()][schip.getY() - i] = Vakje.SH;
+                    speelMatrix[schip.getY()][schip.getX() - i] = Vakje.SH;
                 }
             }
         }
@@ -67,6 +73,12 @@ public class SpeelVeld {
 
     public Vakje checkLocatie(int x, int y) {
         return speelMatrix[x][y];
+    }
+
+    public boolean isVrij(int x,int y){
+        if (speelMatrix[y][x].equals(Vakje.SH)){
+            return false;
+        }else return true;
     }
 
     public void schipGeraakt(int x, int y) {
@@ -95,7 +107,8 @@ public class SpeelVeld {
                                                   " --------------------------------\n"
         );
         for (Vakje[] vakjes : speelMatrix) {
-            StringBuilder stringBuilder = new StringBuilder(teller + "|");
+            char c = (char) (65 + teller);
+            StringBuilder stringBuilder = new StringBuilder( c + "|");
             teller++;
             for (Vakje vakje : vakjes) {
                 stringBuilder.append(vakje + " ");

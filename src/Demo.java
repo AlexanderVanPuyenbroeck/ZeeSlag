@@ -7,5 +7,9 @@
 public class Demo {
     public static void main(String[] args) {
         ZeeSlag zeeSlag = new ZeeSlag();
+        zeeSlag.start();
+        zeeSlag.schepenZetten();
+        //zeeSlag.rodne();zeeSlag.rodne();zeeSlag.rodne();zeeSlag.rodne();zeeSlag.rodne();zeeSlag.rodne();zeeSlag.rodne();
+
     }
 }

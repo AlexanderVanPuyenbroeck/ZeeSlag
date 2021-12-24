@@ -9,8 +9,6 @@ import java.util.Scanner;
 public class ZeeSlag {
     private Speler speler1;
     private Speler speler2;
-    public final int MAX_Schepen = 5;
-    private int geplaatsteSchepen = 0;
     private int ronde;
     private Scanner scanner = new Scanner(System.in);
 
@@ -29,14 +27,17 @@ public class ZeeSlag {
     }
 
     public void schepenZetten() {
-        System.out.printf("Zetten van schepen voor %s", speler1.getNaam());
-        speler1.setSchepen();
-        System.out.printf("Zetten van schepen voor %s", speler2.getNaam());
-        speler2.setSchepen();
+        System.out.printf("Zetten van schepen voor %s\n", speler1.getNaam());
+        while (speler1.geplaatsteSchepen < speler1.MAX_Schepen) {
+        speler1.setSchip();}
+        System.out.printf("Zetten van schepen voor %s\n", speler2.getNaam());
+        speler2.setSchip();
     }
 
     public void rodne(){
         System.out.println("Speler 1 waar wilt u schieten");
+        System.out.println(speler1.getRadarveld());
+        System.out.println(speler1.getSpeelVeld());
         System.out.print("X:");
         int xa = scanner.nextInt();
         System.out.print("Y:");
@@ -44,6 +45,8 @@ public class ZeeSlag {
         boolean raaka = speler1.schiet(speler2,xa,ya);
         System.out.println(raaka?"raak":"mis");
         System.out.println("Speler 2 waar wilt u schieten");
+        System.out.println(speler2.getRadarveld());
+        System.out.println(speler2.getSpeelVeld());
         System.out.print("X:");
         int xb = scanner.nextInt();
         System.out.print("Y:");
@@ -52,6 +55,8 @@ public class ZeeSlag {
         System.out.println(raakb?"raak":"mis");
         ronde++;
     }
+
+
 
 //            boolean[][] Schepen = new boolean[10][10];
 //

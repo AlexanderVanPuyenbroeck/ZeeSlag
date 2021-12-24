@@ -1,4 +1,7 @@
+import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Alexander Van Puyenbroeck
@@ -9,10 +12,13 @@ import java.util.Scanner;
 public class Speler {
     private String naam;
     private SpeelVeld speelVeld;
+    private SpeelVeld radarveld;
     private int score;
-    public final int MAX_Schepen = 10;
-    private int geplaatsteSchepen = 0;
+    public final int MAX_Schepen = 5;
+    public int geplaatsteSchepen = 0;
     private Scanner scanner = new Scanner(System.in);
+    private Schip[] schepen = new Schip[MAX_Schepen];
+    private Pattern cords = Pattern.compile("[ABCDEFGHIJ][0-9]");
 
 
     public Speler() {
@@ -37,15 +43,28 @@ public class Speler {
 
     }
 
-    public void setSchepen() {
-        Schip[] schepen = new Schip[MAX_Schepen];
-        while (geplaatsteSchepen < MAX_Schepen) {
-            Schip schip = new Schip();
-            System.out.println("waar staat Schip 1? (x-waarde): ");
-            schip.setX(scanner.nextInt());
-            System.out.println("waar staat Schip 1? (y-waarde): ");
-            schip.setY(scanner.nextInt());
-            System.out.println("welk soort schip wil je plaatsen?\nPATROUILLESCHIP (2)\nTORPEDOBOOTJAGER (3)\nSLAGSCHIP(4)\n VLIEGDEKSCHIP(5)): ");
+    public void setSchip() {
+        boolean geldigeLocatie = true;
+        Schip schip = new Schip();
+        do {
+            System.out.println(speelVeld.toString());
+            Matcher m;
+            System.out.printf("waar staat Schip %d? (vb:C5): ", geplaatsteSchepen + 1);
+            boolean inputCorrect = true;
+            String plek;
+            do {
+                plek = scanner.next().toUpperCase();
+                m = cords.matcher(plek);
+                if (!m.matches()) {
+                    System.out.println("geef geldige coordinaten in");
+                    inputCorrect = false;
+                } else inputCorrect = true;
+            } while (!inputCorrect);
+            int y = plek.charAt(0) - 65;
+            schip.setY(y);
+            int x = Integer.parseInt(plek.substring(1, 2));
+            schip.setX(x);
+            System.out.println("welk soort schip wil je plaatsen?\nPATROUILLESCHIP (2)\nTORPEDOBOOTJAGER (3)\nSLAGSCHIP(4)\nVLIEGDEKSCHIP(5)): ");
             int welkSchip = scanner.nextInt();
             switch (welkSchip) {
                 case 1:
@@ -79,26 +98,64 @@ public class Speler {
                 default:
                     schip.setRichting(Schip.Richting.WEST);
             }
-            System.out.println("gekozen richting: " + schip.getRichting());
-            System.out.println("x waarde: " + schip.getX());
-            System.out.println("y waarde: " + schip.getY());
-            schepen[geplaatsteSchepen] = schip;
-            geplaatsteSchepen++;
-        }
+
+            if (schip.getRichting() == Schip.Richting.NOORD) {
+                for (int i = 0; i < schip.getLengte(); i++) {
+                    if(!speelVeld.isVrij(x,y-i)){
+                        geldigeLocatie = false;
+                        System.out.println("Locatie is al bezet!");
+                    }
+                }
+            } else if (schip.getRichting() == Schip.Richting.OOST) {
+                for (int i = 0; i < schip.getLengte(); i++) {
+                    if(!speelVeld.isVrij(x+i,y)){
+                        geldigeLocatie = false;
+                        System.out.println("Locatie is al bezet!");
+                    }
+                }
+            } else if (schip.getRichting() == Schip.Richting.ZUID) {
+                for (int i = 0; i < schip.getLengte(); i++) {
+                    if(!speelVeld.isVrij(x,y+i)){
+                        geldigeLocatie = false;
+                        System.out.println("Locatie is al bezet!");
+                    }
+                }
+            } else if (schip.getRichting() == Schip.Richting.WEST) {
+                for (int i = 0; i < schip.getLengte(); i++) {
+                    if(!speelVeld.isVrij(x-i,y)){
+                        geldigeLocatie = false;
+                        System.out.println("Locatie is al bezet!");
+                    }
+                }
+            }
+
+
+//            System.out.println("gekozen richting: " + schip.getRichting());
+//            System.out.println("x waarde: " + schip.getX());
+//            System.out.println("y waarde: " + schip.getY());
+//            schepen[geplaatsteSchepen] = schip;
+//            geplaatsteSchepen++;
+        } while (!geldigeLocatie);
+        speelVeld.schipToevoegen(schip);
     }
 
-    public boolean schiet(Speler doelwit, int x, int y){
-        SpeelVeld.Vakje vakje = doelwit.getSpeelVeld().checkLocatie(x,y);
-        if (vakje.equals(SpeelVeld.Vakje.SH)){
-            doelwit.getSpeelVeld().schipGeraakt(x,y);
+
+    public boolean schiet(Speler doelwit, int x, int y) {
+        SpeelVeld.Vakje vakje = doelwit.getSpeelVeld().checkLocatie(x, y);
+        if (vakje.equals(SpeelVeld.Vakje.SH)) {
+            doelwit.getSpeelVeld().schipGeraakt(x, y);
+            radarveld.schipGeraakt(x, y);
             return true;
-        }
-        else {
-            doelwit.getSpeelVeld().schipGemist(x,y);
+        } else {
+            doelwit.getSpeelVeld().schipGemist(x, y);
+            radarveld.schipGemist(x, y);
             return false;
         }
     }
 
+    public SpeelVeld getRadarveld() {
+        return radarveld;
+    }
 
     public SpeelVeld getSpeelVeld() {
         return speelVeld;
